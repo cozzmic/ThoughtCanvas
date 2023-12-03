@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
+import Icon from "react-native-vector-icons/FontAwesome";
 
 import Login from './src/screen/login';
 import Signup from './src/screen/signup';
@@ -34,6 +35,9 @@ const CustomHeader = ({ route, navigation }) => {
 
   return (
     <View style={styles.headerContainer}>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <Icon style={styles.backIcon} name="arrow-left" />
+      </TouchableOpacity>
       <Text style={styles.headerText}>ThoughtCanvas</Text>
       <View style={styles.rightHeader}>
         <TouchableOpacity
@@ -117,8 +121,23 @@ const styles = StyleSheet.create({
     height: '100%',
     padding: '1%',
   },
+  backButton: {
+    position: "absolute",
+    top: 20,
+    left: 20,
+    zIndex: 1,
+    alignItems: 'flex-start',
+    marginRight: 10,
+  },
+  backIcon: {
+    fontWeight: 100,
+    fontSize: 24,
+    color: '#fff',
+    marginRight: 20
+  },
   headerText: {
-    fontSize: 18,
+    marginLeft: 40,
+    fontSize: 22,
     fontWeight: 'bold',
     color: 'white',
   },

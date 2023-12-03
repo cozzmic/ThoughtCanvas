@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import { toast } from 'react-toastify';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -29,24 +22,17 @@ export default function Login({ navigation }) {
       );
 
       console.log("Login successful:", response.data);
-     
-      await AsyncStorage.setItem("userData", JSON.stringify(response.data,username));
-      toast.success('Login successful', {
-        position: 'top-center',
-        autoClose: 3000,
-      });
+
+      await AsyncStorage.setItem("userData", JSON.stringify(response.data, username));
+
       navigation.navigate('Home');
     } catch (error) {
       console.log("Error during Login:", error);
 
-      
-      const errorMessage =  toast.error(error?.response?.data?.message, {
-        position: 'top-center',
-        autoClose: 3000,
-      });
+      const errorMessage = error?.response?.data?.message || 'An error occurred';
+
       console.log("Error message:", errorMessage);
 
-      alert(`Error during Login: ${errorMessage}. Please try again.`);
     }
   };
 
@@ -77,14 +63,14 @@ export default function Login({ navigation }) {
           }}
         >
           <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
-      <View style={styles.signupLink}>
+        </TouchableOpacity>
+        <View style={styles.signupLink}>
           <Text>Don't have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
             <Text style={styles.signupText}>Sign up</Text>
           </TouchableOpacity>
         </View>
-        </View>
+      </View>
     </View>
   );
 }
